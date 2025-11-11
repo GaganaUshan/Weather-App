@@ -13,14 +13,11 @@ import {
 
 // --- !!! IMPORTANT !!! ---
 // 1. Go to https://openweathermap.org/ and create a free account.
-// 2. Find your API Key in your account settings.
-// 3. Paste that key here:
-const API_KEY = '851b28d4fb545a937b059fb0dcd171cd'; // <--- PASTE YOUR KEY HERE
+const API_KEY = 'YOUR_KEY_HERE';
 
 const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-// --- 1. Type Definitions (for TypeScript) ---
-// This tells TypeScript what our weather data will look like
+
 type WeatherData = {
   name: string;
   main: {
@@ -28,26 +25,26 @@ type WeatherData = {
   };
   weather: {
     description: string;
-  }[]; // This means it's an array of objects
+  }[]; 
 };
 
-export default function TabOneScreen() { // Renamed to match the file
+export default function TabOneScreen() { 
   
-  // --- 2. State Variables (with Types) ---
+
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [city, setCity] = useState<string>('London');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   
-  // --- 3. The Data Fetching Function ---
+
   const fetchWeather = async (cityName: string) => {
     if (!cityName) return;
 
     setLoading(true);
     setWeatherData(null);
     setError(null);
-    Keyboard.dismiss(); // Hides the keyboard
+    Keyboard.dismiss(); 
 
     try {
       const url = `${API_URL}?q=${cityName}&appid=${API_KEY}&units=metric`;
@@ -68,15 +65,14 @@ export default function TabOneScreen() { // Renamed to match the file
   };
 
   
-  // --- 4. The useEffect Hook ---
-  // Runs once when the app loads
+  
   useEffect(() => {
     fetchWeather(city);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   
-  // --- 5. The UI (What You See) ---
+
   return (
     // SafeAreaView handles the phone's notch/status bar area
     <SafeAreaView style={styles.container}>
